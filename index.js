@@ -40,10 +40,42 @@ class Airplane {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-class Person {
+  class Person {
+    constructor(attributes) {
+      this.stomach = [];
+      this.name = attributes.name;
+      this.age = attributes.age;
+    }
 
-}
+    eat(food) {
+      if(this.stomach < 10){
+        this.stomach.push(food);
+      }
+    }
 
+    poop() {
+      shit()
+    }
+
+    shit() {
+      this.stomach = [];
+    }
+
+    toString() {
+      return `${this.name} is ${this.age}.`
+    }
+
+};
+
+const mary = new Person({
+  name: 'Mary',
+  age: 31
+})
+
+mary.eat('turkey');
+console.log(mary.stomach[0]);
+mary.shit();
+console.log(mary.stomach);
 /*
   TASK 2
     - Write a Car class whose constructor initializes `model` and `milesPerGallon` from arguments.
@@ -59,8 +91,41 @@ class Person {
 */
 
 class Car {
+  constructor(attributes){
+    this.tank = 0;
+    this.odometer = 0;
+    this.model = attributes.model;
+    this.milesPerGallon = attributes.milesPerGallon;
+  }
+
+  fill(gallons){
+    this.tank += gallons;
+  }
+
+  drive(distance){
+
+    if(this.tank === 0){
+      return `I ran out of fuel at ${this.odometer} miles.`
+    } else {
+      this.odometer += distance;
+      this.tank = this.tank - (distance / this.milesPerGallon);
+    }
+  }
+
+
+
 
 }
+
+const prius = new Car({
+  model: 'Prius',
+  milesPerGallon: 35
+});
+
+prius.fill(80)
+prius.drive(50)
+console.log(prius.odometer);
+console.log(prius.tank);
 
 /*
   TASK 3
@@ -75,9 +140,26 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
+  constructor(attributes){
+    this.name = attributes.name,
+    this.age = attributes.age;
+    this.location = attributes.location;
+
+  }
+
+  speak(){
+    return `Hello my name is ${this.name}, I am from ${this.location}.`
+  }
 
 }
 
+const success = new Lambdasian({
+    name: 'Mason',
+    age: 27,
+    location: 'San Francisco'
+})
+
+console.log(success.speak())
 /*
   TASK 4
     - Write an Instructor class extending Lambdasian.
@@ -92,9 +174,35 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
+class Instructor extends Lambdasian{
+  constructor(attributes){
+    super(attributes);
+    this.specialty = attributes.specialty,
+    this.favLanguage = attributes.favLanguage,
+    this.catchPhrase = attributes.catchPhrase
+  }
+  demo(subject){
+    return `Today we are learning about ${subject}.`
+  }
+  grade(student, subject){
+    return `Hey, this is ${this.name} and ${student} receives a perfect score on ${subject}.`
+  }
 
 }
+
+const hamblin = new Instructor({
+  name: 'Ryan',
+  location: 'Utah',
+  favLanguage: 'JavaScript',
+  catchPhrase: 'Rad',
+  specialty: 'Rappeling'
+});
+
+
+console.log(hamblin.demo('NodeJS'));
+
+console.log(hamblin.grade('Mason', 'Javascript'))
+
 
 /*
   TASK 5
@@ -111,9 +219,36 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
+class Student extends Lambdasian{
+  constructor(attributes){
+    super(attributes);
+    this.previousBackground = attributes.previousBackground,
+    this.className = attributes.className,
+    this.favSubjects = attributes.favSubjects
 
+  }
+
+  listSubjects(){
+    return `Loving ${this.favSubjects}`
+  }
+
+  PRAssignment(subject){
+    return `${this.name} hsa submitted a PR for ${subject}.`
+  }
+
+  sprintChallenge(subject){
+    return `${this.name} has begin sprint challenge on ${subject}.`
+  }
 }
+
+const mason = new Student({
+  name: 'Mason',
+  favSubjects: 'JS, Python',
+});
+
+console.log(mason.sprintChallenge('JS Unit 1'));
+
+console.log(mason.listSubjects());
 
 /*
   TASK 6
@@ -128,9 +263,30 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
+class ProjectManager extends Instructor{
+  constructor(attributes){
+    super(attributes)
+    this.gradClassName = attributes.gradClassName,
+    this.favInstructor = attributes.favInstructor
+  }
+
+  standUp(channel){
+    return `${this.name} announces to ${channel}, @channel stand up time!`
+  }
+
+  debugsCode(student){
+    return `${this.name} is debugging ${student}'s code!`
+  }
 
 }
+
+const tiffany = new ProjectManager({
+  name: 'Tiffany',
+  gradClassName: 'Web17',
+  favInstructor: 'Alice lol'
+});
+
+console.log(tiffany.debugsCode('Johnny'));
 
 /*
   STRETCH PROBLEM (no tests!)
@@ -140,6 +296,29 @@ class ProjectManager {
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////

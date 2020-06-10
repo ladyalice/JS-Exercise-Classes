@@ -75,7 +75,7 @@ describe('Instance of Person', () => {
 describe('Instance of Car', () => {
   let batmobile
   beforeEach(() => {
-    batmobile = new results.Car('BatMobile', 20)
+    batmobile = new results.Car({model: 'BatMobile', milesPerGallon: 20})
   })
   it('[1] initializes with the given model', () => {
     expect(batmobile.model).to.equal('BatMobile')
